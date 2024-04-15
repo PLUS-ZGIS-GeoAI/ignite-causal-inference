@@ -32,13 +32,13 @@ def save_model(path_to_model: str, model: gcm.ProbabilisticCausalModel, summary:
     with open(path_to_model , 'wb') as buff:
         cloudpickle.dump(dict_to_save, buff)
 
-
 def main():
     data = pd.read_csv(PATH_TO_DATA)
     data_preprocessed = preprocess_data(data)
     causal_model, causal_mechanisms_summary = create_causal_model(causal_graph, data_preprocessed)
     gcm.fit(causal_model, data_preprocessed)
-    save_model(PATH_TO_MODEL, causal_model, causal_mechanisms_summary)
+    evaluation_report = gcm.evaluate_causal_model(causal_model, data_preprocessed, compare_mechanism_baselines=True, evaluate_invertibility_assumptions=False)
+    save_model(PATH_TO_MODEL, causal_model, causal_mechanisms_summary, evaluation_report)
 
 if __name__ == "__main__":
     main()

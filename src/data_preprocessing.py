@@ -19,7 +19,7 @@ def classify_canopy_cover(cc: float) -> str:
         return "60<cc<=80"
     elif (cc > 80):
         return "cc>80"
-    else: 
+    else:
         return "None"
 
 
@@ -43,7 +43,7 @@ def classify_ffmc(cc: float) -> str:
         return "91<=ffmc<93"
     elif (cc >= 93):
         return "ffmc>=93"
-    else: 
+    else:
         return "None"
 
 

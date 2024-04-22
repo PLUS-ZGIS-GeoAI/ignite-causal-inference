@@ -18,7 +18,8 @@ def preprocess_data(data: pd.DataFrame) -> pd.DataFrame:
     processed_data_dict = {
         "exposition": data["aspect"].apply(classify_aspect),
         "forest_type": data['forest_type'].apply(lambda x: apply_encoding(int(x), forest_type_mapping)),
-        "ffmc": data["ffmc"].apply(classify_ffmc),
+        # "ffmc": data["ffmc"].apply(classify_ffmc),
+        "ffmc": data["ffmc"],
         "forest_coverage": data["canopy_cover"].apply(classify_canopy_cover),
         "fire": data["fire"].astype("str")}
     return pd.DataFrame(processed_data_dict)

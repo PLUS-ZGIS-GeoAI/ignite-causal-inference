@@ -49,4 +49,42 @@ Last status 16.04.2024
 - Most important part is to get the research questions right - so that I can write a paper
 
 
+Research Questions Causal Inference Fire Ignition
+
+
+- We want to compare the causal impact of the different factors on fire ignition
+        Method: Quantification of Arrow Strength
+
+- We want to find the Average Causal Effect (ACE) of the factors on fire ignition. The causal impact mediated over other factors (e.g. forest type --> forest cover --> fire ignition) should be removed.
+        Method: We use the GCM to calculate the ACE for each factor given a reference and treatment value. We block the forward paths of other factors by fixing the value of the factor
+
+- We want to use the causal model for prediction of wildfire ignition (danger)
+        Method: We draw interventional samples from the GCM for a certain combination of predictor values
+                We evaluate using test set and compare to other ML approaches
+
+Methodology:
+        - Everything should be doable with GCM
+
+
+Research Question:
+- Quantification of causal importance of arrows (direct effects)
+- What is the Controlled Direct Effect (CDE) of forest type, forest cover & exposition on forest fire ignition?
+- Can we use the GCM to make comparably good predicitons?
+
+Output:
+- Graph with Causal Importance of predictors (& confidence)
+- Graph with ACE vs CDE of three factors
+- Evaluation graph of predicitve performance
+
+
+# TODOs
+- Decision - only all data / ignore location uncertainty
+- Notebook - investigate data (train & test)
+- Notebook - causal prediction & evaluation
+- Notebook - quantification of arrow strenght
+
+
+
+
+
 

@@ -1,6 +1,6 @@
 import pandas as pd
 import geopandas as gpd
-from preprocessing_functions import (classify_aspect,
+from src.preprocessing_functions import (classify_aspect,
                                     classify_canopy_cover,
                                     forest_type_mapping,
                                     apply_encoding, 
@@ -42,7 +42,8 @@ def preprocess_data(data: pd.DataFrame) -> pd.DataFrame:
         "forest_coverage": data["canopy_coverage"].apply(classify_canopy_cover),
 
         "ffmc": data["ffmc"],
-        "fire": data["fire"].astype("str")}
+        "fire": data["fire"].apply(map_to_binary)}
+    
     return pd.DataFrame(processed_data_dict)
 
 
@@ -50,7 +51,7 @@ def preprocess_data(data: pd.DataFrame) -> pd.DataFrame:
 if __name__ == "__main__":
 
     # read in training data
-    path_to_observational_data = r"data/data_all_factors/training_data.shp"
+    path_to_observational_data = r"data/data_raw/training_data.shp"
     obs_data_raw = gpd.read_file(path_to_observational_data)
     obs_data_raw.date = pd.to_datetime(obs_data_raw.date)
 
@@ -58,7 +59,7 @@ if __name__ == "__main__":
     data_obs_prep = preprocess_data(obs_data_raw)
 
     # split both datasets temporally into train and test set 
-    data_train, data_test = temporal_train_test_split(data_obs_prep, "date", 0.7)
+    data_train, data_test = temporal_train_test_split(data_obs_prep, "date", 0.9)
 
     # save data
     data_train.to_csv(r"data/data_prep/data_train.csv")

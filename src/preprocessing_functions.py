@@ -166,7 +166,7 @@ def apply_encoding(original_value: str, mapping: dict):
 
 
 def map_to_binary(x):
-    return "1" if x > 0 else "0"
+    return "Yes" if x > 0 else "No"
 
 
 forest_type_mapping = {

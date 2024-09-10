@@ -77,14 +77,5 @@ Output:
 - Evaluation graph of predicitve performance
 
 
-# TODOs
-- Decision - only all data / ignore location uncertainty
-- Notebook - investigate data (train & test)
-- Notebook - causal prediction & evaluation
-- Notebook - quantification of arrow strenght
 
-
-
-
-
-
+test

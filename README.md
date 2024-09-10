@@ -1,81 +1,31 @@
-# causal-inference-forest-fire-ignition
+# Causal Graphical Models for Wildfire Ignition Analysis
 
-Up-to-date documentation: https://www.pywhy.org/dowhy/v0.11.1/user_guide/index.html
+This repository contains the code and data used in the study on wildfire ignition risk analysis in Austria. The primary goal of the study is to adapt the Fine Fuel Moisture Code (FFMC) by integrating additional factors, using a Graphical Causal Model (GCM) to identify the most influential factors and estimate their direct causal impact on wildfire occurrence. 
 
+## Structure
 
-Requirements:
--	We need the isolated effect of each factor on fire susceptibility.
-    o	From this we can somewhat determine the size of the adjustment value for each factor (factor with smaller influence gets smaller adjustment values)
--	We need to compare the effect strengths of the different factor classes to each other.
--	Is FFMC an effect modifier? --> If yes, then we need to estimate the ACEs for FFMC subgroups.
-    
+- `data/`: Contains the wildfire data used in the study.
+- `src/`: Python scripts for building the DAG, preprocessing data and util functions for saving and loading the causal model
+- `notebooks/`: Contains notebooks for executing the FFMC adjusment study. One notebook consideres FFMC itself in the  study, the does not. 
 
-Notes
-- Explore if it is possible to calculate the CATE per factor-class given the FFMC class
-        - unfortunately not yet possible to do it with gmc - this supports only average causal effects so far (arrow strength)
-- Can we use causal graphs which include variables without data in dowhy
-        - Yes this is easily possible with traditional dowhy api
-        - It causes problems when using gcm
-        - Conclusion: We should present graphs with variables we have data about & variables we do not have data of
-- How to derive adjustment values from causal estimates?
-- How to make predictions with causal mechanisms? - Is it possible?
-        - If we set the causal mechanisms ourselves with models trained on parent nodes, its easy to make predictions
-        - it seems that so far autoset mechanisms can not be accessed to make predictions
-- CICD pipeline
+## Key Features
 
+1. **Graphical Causal Model (GCM)**: 
+   - The model is represented as a Directed Acyclic Graph (DAG) that captures the causal relationships between topographical, human, forest, and environmental factors influencing wildfire ignition.
+   - We use the `DoWhy` package to estimate causal impacts and Average Causal Effects (ACE).
 
-Roadmap
-- Check if CATE works with categorical data in traditional dowhy API
-- Figure out how to derive adjustment values from causal estimates
-- Implement full causal pipeline for calculating adjustment values
-- Create more complete causal graph and run pipeline
+2. **Causal Inference**:
+   - Direct causal impact of factors on wildfire ignition is estimated in "bits" using the arrow strength method.
+   - Average Causal Effect (ACE) calculations are used to measure the direct impact of changing factor categories (e.g., forest type, slope) on wildfire probability.
 
-CATE
-- Whats the ATE for factors (forest type, forest cover & exposition) for FFMC subgroups
-- How to interpret those values
+3. **FFMC Adjustment**:
+   - FFMC values are adjusted based on the direct causal impact of key factors identified through the GCM. The adjusted FFMC is tested on both wildfire and non-wildfire events.
 
-Research Questions:
-- Direct causal influence of factors
-- Making predictions? Interventional samples, setting parent nodes of fire
+## Installation
 
+To use this code, clone the repository and install the required Python packages:
 
-
-Last status 16.04.2024
-- Estimated direct causal influence and ATE for three factors based on simple graph
-- Based on dowhy tests graph is rejected
-- The last things I did was to think about research questions & to create a more complete graph with triggers (see drawio)
-- I wanted to write Christian Schmidt for Temperature, Precipitation, ... values
-- How to model that FFMC is depending on last FFMC value in the Graph?
-- Most important part is to get the research questions right - so that I can write a paper
-
-
-Research Questions Causal Inference Fire Ignition
-
-
-- We want to compare the causal impact of the different factors on fire ignition
-        Method: Quantification of Arrow Strength
-
-- We want to find the Average Causal Effect (ACE) of the factors on fire ignition. The causal impact mediated over other factors (e.g. forest type --> forest cover --> fire ignition) should be removed.
-        Method: We use the GCM to calculate the ACE for each factor given a reference and treatment value. We block the forward paths of other factors by fixing the value of the factor
-
-- We want to use the causal model for prediction of wildfire ignition (danger)
-        Method: We draw interventional samples from the GCM for a certain combination of predictor values
-                We evaluate using test set and compare to other ML approaches
-
-Methodology:
-        - Everything should be doable with GCM
-
-
-Research Question:
-- Quantification of causal importance of arrows (direct effects)
-- What is the Controlled Direct Effect (CDE) of forest type, forest cover & exposition on forest fire ignition?
-- Can we use the GCM to make comparably good predicitons?
-
-Output:
-- Graph with Causal Importance of predictors (& confidence)
-- Graph with ACE vs CDE of three factors
-- Evaluation graph of predicitve performance
-
-
-
-test
+```bash
+git clone https://github.com/PLUS-ZGIS-GeoAI/ignite-causal-inference.git
+conda env create -f env.yml
+conda activate causal_inference

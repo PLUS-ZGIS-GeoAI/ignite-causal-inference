@@ -4,7 +4,7 @@ This repository contains the code and data used in the study on wildfire ignitio
 
 ## Structure
 
-- `data/`: Contains the wildfire data used in the study.
+- `data/`: Contains the wildfire data used in the study. (for data, please send a message to the contact)
 - `src/`: Python scripts for building the DAG, preprocessing data and util functions for saving and loading the causal model
 - `notebooks/`: Contains notebooks for executing the FFMC adjusment study. One notebook consideres FFMC itself in the  study, the does not. 
 
@@ -29,3 +29,9 @@ To use this code, clone the repository and install the required Python packages:
 git clone https://github.com/PLUS-ZGIS-GeoAI/ignite-causal-inference.git
 conda env create -f env.yml
 conda activate causal_inference
+```
+
+
+## Contact
+
+For any questions or further information, please contact David Röbl (davidsam.roebl@gmail.com).
